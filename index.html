@@ -807,150 +807,86 @@
 
   <div id="toast"></div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script>
-    // ── VALID CODES (placeholder — zastąp własnymi) ──────────────────────────
-    // W docelowej wersji (z Supabase) kody będą sprawdzane server-side.
-    // Tu wpisz hardcoded kody testowe lub zostaw pustą tablicę do czasu
-    // integracji z backendem.
-    const VALID_CODES = new Set([
-      // 'DEMO-2024', 'TEST-0001'  ← przykład
-    ]);
+    const EMAILJS_SERVICE_ID        = 'service_dmwyowc';
+    const EMAILJS_TEMPLATE_NOTIFY   = 'template_wqsj92k';
+    const EMAILJS_TEMPLATE_APPROVAL = 'template_3ial2dc';
+    const EMAILJS_PUBLIC_KEY        = 'abYqW-rUvxEAPMD6S';
+    const ACCESS_CODE               = 'TOSCA-2026';
+    const APPROVE_BASE_URL          = 'https://tosca3.github.io/approve.html';
 
-    // ── FORM SUBMISSION ──────────────────────────────────────────────────────
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+
     document.getElementById('request-form').addEventListener('submit', async function(e) {
       e.preventDefault();
-
       const form = e.target;
-      const btn = document.getElementById('submit-btn');
+      const btn  = document.getElementById('submit-btn');
 
-      // Basic validation
-      const fname = form.fname.value.trim();
-      const lname = form.lname.value.trim();
-      const email = form.email.value.trim();
+      const fname       = form.fname.value.trim();
+      const lname       = form.lname.value.trim();
+      const email       = form.email.value.trim();
       const affiliation = form.affiliation.value.trim();
-      const status = form.status.value;
-      const purpose = form.purpose.value;
+      const status      = form.status.value;
+      const purpose     = form.purpose.value;
       const description = form.description.value.trim();
-      const consent = form.consent.checked;
+      const consent     = form.consent.checked;
 
       if (!fname || !lname || !email || !affiliation || !status || !purpose || description.length < 30 || !consent) {
         showToast('Proszę wypełnić wszystkie wymagane pola.');
         return;
       }
 
-      btn.disabled = true;
+      btn.disabled    = true;
       btn.textContent = 'Wysyłanie...';
 
-      // ── WYSYŁKA (EmailJS) ────────────────────────────────────────────────
-      // KONFIGURACJA: Zastąp poniższe wartości własnymi danymi z EmailJS:
-      // 1. Wejdź na https://www.emailjs.com/
-      // 2. Utwórz konto i nowy serwis e-mail
-      // 3. Stwórz szablon z polami: {{fname}}, {{lname}}, {{email}},
-      //    {{affiliation}}, {{status}}, {{purpose}}, {{description}}
-      // 4. Wklej swoje Service ID, Template ID i Public Key poniżej.
+      const approveParams = new URLSearchParams({ fname, lname, email, affiliation, status, purpose });
+      const approveLink   = APPROVE_BASE_URL + '?' + approveParams.toString();
 
-      const EMAILJS_SERVICE_ID  = 'service_dmwyowc';
-      const EMAILJS_TEMPLATE_ID = 'template_wqsj92k';
-      const EMAILJS_PUBLIC_KEY  = 'abYqW-rUvxEAPMD6S';
-
-      const templateParams = {
-        fname, lname, email, affiliation, status, purpose, description,
-        to_email: 'artur.a@me.com',
-        sent_at: new Date().toLocaleString('pl-PL'),
-      };
-
-      let sent = false;
-
-      // Próba wysłania przez EmailJS (jeśli skonfigurowane)
-      if (EMAILJS_SERVICE_ID !== 'TWOJ_SERVICE_ID') {
-        try {
-          await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, EMAILJS_PUBLIC_KEY);
-          sent = true;
-        } catch (err) {
-          console.warn('EmailJS error:', err);
-        }
-      } else {
-        // Fallback: mailto (otwiera klienta pocztowego)
-        const body = encodeURIComponent(
-          `Nowy wniosek o dostęp do TOSCA-3 PL\n\n` +
-          `Imię i nazwisko: ${fname} ${lname}\n` +
-          `E-mail: ${email}\n` +
-          `Afiliacja: ${affiliation}\n` +
-          `Status: ${status}\n` +
-          `Cel: ${purpose}\n\n` +
-          `Opis:\n${description}\n\n` +
-          `Przesłano: ${new Date().toLocaleString('pl-PL')}`
-        );
-        window.location.href = `mailto:artur.a@me.com?subject=${encodeURIComponent('Wniosek TOSCA-3 PL — ' + fname + ' ' + lname)}&body=${body}`;
-        sent = true;
+      try {
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_NOTIFY, {
+          fname, lname, email, affiliation, status, purpose, description,
+          to_email:     'artur.a@me.com',
+          sent_at:      new Date().toLocaleString('pl-PL'),
+          approve_link: approveLink,
+        });
+      } catch (err) {
+        console.warn('EmailJS error:', err);
       }
 
-      // Pokaż sukces
       document.getElementById('request-form').style.display = 'none';
-      document.getElementById('success-box').style.display = 'block';
+      document.getElementById('success-box').style.display  = 'block';
     });
 
-    // ── CODE VERIFICATION ────────────────────────────────────────────────────
     function verifyCode() {
-      const input = document.getElementById('access-code').value.trim().toUpperCase();
+      const input   = document.getElementById('access-code').value.trim().toUpperCase();
       const errorEl = document.getElementById('code-error');
-      const panel = document.getElementById('download-panel');
+      const panel   = document.getElementById('download-panel');
 
-      if (VALID_CODES.has(input)) {
+      if (input === ACCESS_CODE) {
         errorEl.style.display = 'none';
-        panel.style.display = 'block';
+        panel.style.display   = 'block';
         panel.classList.add('fade-in');
         showToast('Kod zatwierdzony. Możesz pobrać materiały.');
-        // Log use
-        logCodeUse(input);
       } else {
         errorEl.style.display = 'block';
-        panel.style.display = 'none';
+        panel.style.display   = 'none';
         document.getElementById('access-code').style.borderColor = 'var(--accent)';
       }
     }
 
     document.getElementById('access-code').addEventListener('keydown', function(e) {
       if (e.key === 'Enter') verifyCode();
-      // Auto-format: dodaj myślnik po 4 znakach
-      const val = this.value.replace(/-/g, '');
-      if (val.length === 4 && e.key !== 'Backspace' && !this.value.includes('-')) {
-        this.value = val + '-';
-      }
     });
 
-    // ── DOWNLOAD LOGGING ─────────────────────────────────────────────────────
-    function logDownload(fileName) {
-      // Tu możesz podłączyć Supabase / własny endpoint do logowania pobrań
-      // Na razie console.log + powiadomienie
-      console.log(`Download: ${fileName} @ ${new Date().toISOString()}`);
-      showToast(`Pobieranie: ${fileName}`);
+    function logDownload(fileName) { showToast('Pobieranie: ' + fileName); }
 
-      // Opcja: wyślij email powiadomienie przez EmailJS
-      // emailjs.send(SERVICE_ID, NOTIFICATION_TEMPLATE_ID, { file: fileName });
-    }
-
-    function logCodeUse(code) {
-      console.log(`Code used: ${code} @ ${new Date().toISOString()}`);
-    }
-
-    // ── TOAST ────────────────────────────────────────────────────────────────
     function showToast(msg) {
-      const t = document.getElementById('toast');
-      t.textContent = msg;
+      const t         = document.getElementById('toast');
+      t.textContent   = msg;
       t.style.display = 'block';
       setTimeout(() => { t.style.display = 'none'; }, 3500);
     }
-  </script>
-
-  <!-- EmailJS SDK (załadowane leniwie — aktywuje się tylko gdy skonfigurowane) -->
-  <script>
-    window.addEventListener('load', function() {
-      const script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js';
-      script.onload = () => console.log('EmailJS loaded');
-      document.head.appendChild(script);
-    });
   </script>
 
 </body>
