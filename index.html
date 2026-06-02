@@ -602,8 +602,8 @@
         ISSN 0048-5675<br>
         CC BY-NC-ND 4.0<br>
         <span style="color: var(--border);">────────────────</span><br>
-        Licencja badawcza<br>
-        wymagana
+        Copyright polskiej adaptacji<br>
+        © A. Adamczyk
       </div>
     </div>
   </header>
@@ -621,6 +621,9 @@
       </p>
       <p>
         Narzędzie może być stosowane w badaniach naukowych. Dane pilotażowe nie pozwalają jednak na diagnozę indywidualną — wymagają dalszej standaryzacji i normalizacji.
+      </p>
+      <p>
+        Przed przystąpieniem do stosowania kwestionariusza wymagane jest zapoznanie się z podręcznikiem: <strong>Tangney, J. P., &amp; Dearing, R. L. (2002). <em>Shame and Guilt.</em> The Guilford Press.</strong> Podręcznik zawiera szczegółowe instrukcje administrowania, interpretacji wyników oraz omówienie teoretycznych podstaw narzędzia. Dostępny m.in. na <a href="https://www.amazon.pl/Shame-Guilt-June-Price-Tangney/dp/1572309873" target="_blank" style="color: var(--accent);">Amazon</a>.
       </p>
     </section>
 
@@ -700,8 +703,7 @@
                 <option value="praca-dyplomowa">Praca magisterska / licencjacka</option>
                 <option value="praca-doktorska">Praca doktorska</option>
                 <option value="dydaktyka">Dydaktyka / zajęcia akademickie</option>
-                <option value="kliniczne">Zastosowanie kliniczne (wstępne)</option>
-                <option value="inne">Inne</option>
+<option value="inne">Inne</option>
               </select>
             </div>
           </div>
@@ -716,6 +718,20 @@
             <label class="radio-option" style="text-transform: none; letter-spacing: 0; font-size: 0.85rem;">
               <input type="checkbox" id="consent" name="consent" required style="accent-color: var(--accent);">
               <span>Potwierdzam zapoznanie się z artykułem opisującym adaptację (Adamczyk &amp; Sobolewski, 2022) i zobowiązuję się cytować go w przypadku opublikowania wyników badań z użyciem narzędzia.</span>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="radio-option" style="text-transform: none; letter-spacing: 0; font-size: 0.85rem; align-items: flex-start; gap: 0.6rem;">
+              <input type="checkbox" id="competence" name="competence" required style="accent-color: var(--accent); margin-top: 0.2rem; flex-shrink: 0;">
+              <span>Oświadczam, że posiadam kwalifikacje zawodowe lub naukowe uprawniające do stosowania narzędzi psychometrycznych, bądź pracuję pod nadzorem uprawnionego specjalisty.</span>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="radio-option" style="text-transform: none; letter-spacing: 0; font-size: 0.85rem; align-items: flex-start; gap: 0.6rem;">
+              <input type="checkbox" id="confidentiality" name="confidentiality" required style="accent-color: var(--accent); margin-top: 0.2rem; flex-shrink: 0;">
+              <span>Zobowiązuję się do nieudostępniania treści kwestionariusza oraz klucza punktowania osobom nieuprawnionym, a w szczególności osobom badanym lub potencjalnie badanym tym narzędziem.</span>
             </label>
           </div>
 
@@ -792,7 +808,7 @@
     <div class="footer-inner">
       Polska adaptacja TOSCA-3 · Artur Adamczyk &amp; Adam Sobolewski · 2022<br>
       Narzędzie udostępniane na zasadach niekomercyjnych · Cytowanie wymagane przy publikacji<br>
-      Kontakt: <a href="mailto:artur.a@me.com">artur.a@me.com</a>
+      Kontakt w sprawach dotyczących dostępu: formularz powyżej
     </div>
   </footer>
 
@@ -823,7 +839,10 @@
       const description = form.description.value.trim();
       const consent     = form.consent.checked;
 
-      if (!fname || !lname || !email || !affiliation || !status || !purpose || description.length < 30 || !consent) {
+      const competence     = form.competence.checked;
+      const confidentiality = form.confidentiality.checked;
+
+      if (!fname || !lname || !email || !affiliation || !status || !purpose || description.length < 30 || !consent || !competence || !confidentiality) {
         showToast('Proszę wypełnić wszystkie wymagane pola.');
         return;
       }
