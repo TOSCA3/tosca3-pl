@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TOSCA-3 PL — Polska Adaptacja Kwestionariusza</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Mono:wght@300;400;500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #f5f0e8;
+      --warm-white: #faf8f4;
+      --ink: #1a1610;
+      --ink-light: #3d3830;
+      --muted: #7a7265;
+      --border: #d4cfc6;
+      --accent: #8b3a2a;
+      --accent-light: #c4604a;
+      --accent-muted: rgba(139, 58, 42, 0.08);
+      --gold: #b8923a;
+      --shadow: rgba(26, 22, 16, 0.08);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'EB Garamond', Georgia, serif;
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+      line-height: 1.7;
+      font-size: 18px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--warm-white);
+      border-bottom: 1px solid var(--border);
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header-rule {
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--gold) 50%, var(--accent) 100%);
+    }
+
+    .header-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3rem 2rem 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .header-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      display: inline-block;
+      padding: 0.25rem 0.6rem;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 500;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .header-subtitle {
+      font-size: 1rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+
+    .header-authors {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--ink-light);
+      letter-spacing: 0.05em;
+      line-height: 1.8;
+    }
+
+    .header-meta {
+      text-align: right;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      line-height: 2;
+      letter-spacing: 0.05em;
+      padding-top: 0.25rem;
+    }
+
+    .header-meta a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .header-meta a:hover { text-decoration: underline; }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+      display: grid;
+      gap: 2.5rem;
+    }
+
+    /* ── ABSTRACT BOX ── */
+    .abstract {
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      padding: 2rem 2.5rem;
+      position: relative;
+    }
+
+    .abstract::before {
+      content: '❝';
+      position: absolute;
+      top: -0.8rem;
+      left: 1.5rem;
+      font-size: 2.5rem;
+      color: var(--accent);
+      line-height: 1;
+      opacity: 0.4;
+    }
+
+    .abstract-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .abstract p {
+      font-size: 0.95rem;
+      color: var(--ink-light);
+      margin-bottom: 0.75rem;
+      text-align: justify;
+      hyphens: auto;
+    }
+
+    .abstract p:last-child { margin-bottom: 0; }
+
+    .abstract strong {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    /* ── SECTION TITLES ── */
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── STEPS ── */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .step {
+      background: var(--warm-white);
+      padding: 1.5rem;
+      position: relative;
+    }
+
+    .step-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+
+    .step h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: var(--ink);
+    }
+
+    .step p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── FORM ── */
+    .form-card {
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      padding: 2.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 0.5rem;
+    }
+
+    label .req {
+      color: var(--accent);
+      margin-left: 0.15rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea,
+    select {
+      width: 100%;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 0;
+      padding: 0.7rem 0.9rem;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 0.95rem;
+      color: var(--ink);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(139, 58, 42, 0.08);
+    }
+
+    textarea { min-height: 90px; resize: vertical; }
+
+    .select-wrapper {
+      position: relative;
+    }
+
+    .select-wrapper::after {
+      content: '▾';
+      position: absolute;
+      right: 0.9rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none;
+      font-size: 0.8rem;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .radio-option input[type="radio"] {
+      width: auto;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-top: 0.3rem;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 1rem 2rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 0.5rem;
+    }
+
+    .btn-submit:hover { background: var(--accent-light); }
+    .btn-submit:active { transform: scale(0.99); }
+    .btn-submit:disabled {
+      background: var(--border);
+      color: var(--muted);
+      cursor: not-allowed;
+    }
+
+    /* ── SUCCESS STATE ── */
+    #success-box {
+      display: none;
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold);
+      padding: 2rem 2.5rem;
+      text-align: center;
+    }
+
+    #success-box .success-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    #success-box h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    #success-box p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* ── ACCESS SECTION ── */
+    .access-card {
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      padding: 2.5rem;
+    }
+
+    .code-input-row {
+      display: flex;
+      gap: 0;
+    }
+
+    .code-input-row input {
+      flex: 1;
+      border-right: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 1.1rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .btn-verify {
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-verify:hover { background: var(--accent); }
+
+    #code-error {
+      display: none;
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-style: italic;
+      margin-top: 0.5rem;
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* ── DOWNLOAD PANEL ── */
+    #download-panel {
+      display: none;
+      margin-top: 1.5rem;
+    }
+
+    #download-panel .panel-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .file-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .file-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 1rem;
+      background: var(--cream);
+      border: 1px solid var(--border);
+    }
+
+    .file-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .file-icon {
+      font-size: 1.1rem;
+      opacity: 0.6;
+    }
+
+    .file-name {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .file-desc {
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .btn-download {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid var(--accent);
+      padding: 0.3rem 0.7rem;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-download:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* ── CITATION ── */
+    .citation-box {
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      padding: 1.5rem 2rem;
+      font-size: 0.82rem;
+      color: var(--ink-light);
+      line-height: 1.7;
+      font-style: italic;
+    }
+
+    .citation-box strong { font-style: normal; }
+
+    .citation-doi {
+      display: inline-block;
+      margin-top: 0.5rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-style: normal;
+    }
+
+    .citation-doi:hover { text-decoration: underline; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--warm-white);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      line-height: 2;
+    }
+
+    .footer-inner a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* ── NOTIFICATION ── */
+    #toast {
+      display: none;
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--ink);
+      color: #fff;
+      padding: 0.9rem 1.5rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      z-index: 1000;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(1rem); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* ── UTILITIES ── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 680px) {
+      h1 { font-size: 1.7rem; }
+      .header-inner { grid-template-columns: 1fr; }
+      .header-meta { text-align: left; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .form-grid-2 { grid-template-columns: 1fr; }
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in { animation: fadeIn 0.5s ease forwards; }
+  </style>
+</head>
+<body>
+
+  <div class="header-rule"></div>
+  <header>
+    <div class="header-inner">
+      <div>
+        <div class="header-badge">Narzędzie psychometryczne</div>
+        <h1>TOSCA-3 <em>PL</em></h1>
+        <p class="header-subtitle">Polska Adaptacja Kwestionariusza TOSCA-3<br><em>The Test of Self-Conscious Affect</em></p>
+        <div class="header-authors">
+          Artur Adamczyk &amp; Adam Sobolewski<br>
+          <span style="color: var(--muted);">Przegląd Psychologiczny, 65(1), 65–80 · 2022</span>
+        </div>
+      </div>
+      <div class="header-meta">
+        DOI <a href="https://doi.org/10.31648/przegldpsychologiczny.7826">10.31648/pp.7826</a><br>
+        ISSN 0048-5675<br>
+        CC BY-NC-ND 4.0<br>
+        <span style="color: var(--border);">────────────────</span><br>
+        Licencja badawcza<br>
+        wymagana
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ABSTRACT -->
+    <section class="abstract fade-in">
+      <div class="abstract-label">O narzędziu</div>
+      <p>
+        <strong>TOSCA-3</strong> (ang. <em>The Test of Self-Conscious Affect</em>) jest kwestionariuszem opartym na scenariuszach, przeznaczonym do pomiaru skłonności do przeżywania <strong>wstydu</strong> i <strong>poczucia winy</strong> — emocji samoświadomych, których operacjonalizacja stanowi istotne wyzwanie metodologiczne w psychologii.
+      </p>
+      <p>
+        Polska adaptacja kwestionariusza powstała zgodnie z międzynarodowymi zaleceniami adaptacji kulturowej narzędzi psychometrycznych. Badania pilotażowe (N&nbsp;=&nbsp;148) potwierdziły satysfakcjonującą rzetelność (α-Cronbacha) oraz wstępną trafność zbieżną narzędzia. Wyniki wskazują na ujemną korelację skłonności do wstydu z satysfakcją z życia (SWLS; <em>r</em>&nbsp;=&nbsp;−0,177; <em>p</em>&nbsp;&lt;&nbsp;0,05) oraz korelacje skal osobowości EPQ-R(S) ze skłonnością do wstydu (ekstrawersja: <em>r</em>&nbsp;=&nbsp;−0,25; neurotyzm: <em>r</em>&nbsp;=&nbsp;0,40).
+      </p>
+      <p>
+        Narzędzie może być stosowane w badaniach naukowych. Dane pilotażowe nie pozwalają jednak na diagnozę indywidualną — wymagają dalszej standaryzacji i normalizacji.
+      </p>
+    </section>
+
+    <!-- PROCESS -->
+    <section>
+      <div class="section-label">Jak uzyskać dostęp</div>
+      <div class="steps-grid">
+        <div class="step">
+          <div class="step-num">01 —</div>
+          <h3>Złóż wniosek</h3>
+          <p>Wypełnij formularz poniżej. Otrzymasz e-mail z potwierdzeniem w ciągu 24–48 godzin.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">02 —</div>
+          <h3>Wpisz kod dostępu</h3>
+          <p>Po weryfikacji wniosku wyślemy Ci jednorazowy kod, który odblokowuje dostęp do plików.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">03 —</div>
+          <h3>Pobierz materiały</h3>
+          <p>Kwestionariusz, klucz punktowania oraz instrukcja zostaną odblokowane do pobrania.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- REQUEST FORM -->
+    <section id="form-section">
+      <div class="section-label">Formularz wniosku o dostęp</div>
+      <div class="form-card">
+        <form id="request-form" novalidate>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="fname">Imię <span class="req">*</span></label>
+              <input type="text" id="fname" name="fname" placeholder="Jan" required>
+            </div>
+            <div class="form-group">
+              <label for="lname">Nazwisko <span class="req">*</span></label>
+              <input type="text" id="lname" name="lname" placeholder="Kowalski" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Adres e-mail <span class="req">*</span></label>
+            <input type="email" id="email" name="email" placeholder="jan.kowalski@uczelnia.pl" required>
+          </div>
+
+          <div class="form-group">
+            <label for="affiliation">Afiliacja / Uczelnia <span class="req">*</span></label>
+            <input type="text" id="affiliation" name="affiliation" placeholder="Nazwa uczelni lub instytucji" required>
+          </div>
+
+          <div class="form-group">
+            <label>Status zawodowy <span class="req">*</span></label>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="status" value="psycholog" required> Psycholog
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="status" value="student-psychologii"> Student psychologii
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="status" value="badacz"> Badacz / naukowiec
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="status" value="inne"> Inne
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="purpose">Cel wykorzystania narzędzia <span class="req">*</span></label>
+            <div class="select-wrapper">
+              <select id="purpose" name="purpose" required>
+                <option value="" disabled selected>Wybierz cel...</option>
+                <option value="badania-naukowe">Badania naukowe (projekt badawczy)</option>
+                <option value="praca-dyplomowa">Praca magisterska / licencjacka</option>
+                <option value="praca-doktorska">Praca doktorska</option>
+                <option value="dydaktyka">Dydaktyka / zajęcia akademickie</option>
+                <option value="kliniczne">Zastosowanie kliniczne (wstępne)</option>
+                <option value="inne">Inne</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="description">Krótki opis planowanego zastosowania <span class="req">*</span></label>
+            <textarea id="description" name="description" placeholder="Opisz w kilku zdaniach, w jakim projekcie / badaniu zamierzasz użyć narzędzia..." required></textarea>
+            <div class="form-note">Minimum 30 znaków. Opis pomaga w ocenie wniosku.</div>
+          </div>
+
+          <div class="form-group">
+            <label class="radio-option" style="text-transform: none; letter-spacing: 0; font-size: 0.85rem;">
+              <input type="checkbox" id="consent" name="consent" required style="accent-color: var(--accent);">
+              <span>Potwierdzam zapoznanie się z artykułem opisującym adaptację (Adamczyk &amp; Sobolewski, 2022) i zobowiązuję się cytować go w przypadku opublikowania wyników badań z użyciem narzędzia.</span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn-submit" id="submit-btn">
+            Wyślij wniosek o dostęp
+          </button>
+        </form>
+
+        <div id="success-box">
+          <div class="success-icon">✉</div>
+          <h3>Wniosek otrzymany</h3>
+          <p>Dziękujemy za przesłanie formularza. Wiadomość z kodem dostępu zostanie wysłana na podany adres e-mail w ciągu 24–48 godzin roboczych.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ACCESS SECTION -->
+    <section id="access-section">
+      <div class="section-label">Dostęp do materiałów</div>
+      <div class="access-card">
+        <div class="form-group">
+          <label for="access-code">Kod dostępu</label>
+          <div class="form-note" style="margin-bottom: 0.6rem;">Wpisz kod otrzymany w wiadomości e-mail po zatwierdzeniu wniosku.</div>
+          <div class="code-input-row">
+            <input type="text" id="access-code" placeholder="XXXX-XXXX" maxlength="12" autocomplete="off" spellcheck="false">
+            <button class="btn-verify" onclick="verifyCode()">Weryfikuj</button>
+          </div>
+          <div id="code-error">Nieprawidłowy kod dostępu. Sprawdź wiadomość e-mail lub skontaktuj się z autorami.</div>
+        </div>
+
+        <div id="download-panel">
+          <div class="panel-label">Materiały do pobrania</div>
+          <div class="file-list">
+            <div class="file-item">
+              <div class="file-info">
+                <span class="file-icon">📄</span>
+                <div>
+                  <div class="file-name">TOSCA-3 PL — Kwestionariusz</div>
+                  <div class="file-desc">Polska wersja kwestionariusza gotowa do druku</div>
+                </div>
+              </div>
+              <a href="files/TOSCA3_PL_kwestionariusz.pdf" class="btn-download" download onclick="logDownload('kwestionariusz')">Pobierz PDF</a>
+            </div>
+            <div class="file-item">
+              <div class="file-info">
+                <span class="file-icon">🔑</span>
+                <div>
+                  <div class="file-name">Klucz punktowania (Scoring Key)</div>
+                  <div class="file-desc">Instrukcja obliczania wyników i skale</div>
+                </div>
+              </div>
+              <a href="files/TOSCA3_PL_scoring_key.pdf" class="btn-download" download onclick="logDownload('scoring_key')">Pobierz PDF</a>
+            </div>
+            <div class="file-item">
+              <div class="file-info">
+                <span class="file-icon">📋</span>
+                <div>
+                  <div class="file-name">Instrukcja administrowania</div>
+                  <div class="file-desc">Zasady stosowania narzędzia i uwagi metodologiczne</div>
+                </div>
+              </div>
+              <a href="files/TOSCA3_PL_instrukcja.pdf" class="btn-download" download onclick="logDownload('instrukcja')">Pobierz PDF</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CITATION -->
+    <section>
+      <div class="section-label">Jak cytować</div>
+      <div class="citation-box">
+        Adamczyk, A., &amp; Sobolewski, A. (2022). Polska adaptacja kwestionariusza TOSCA-3 (<em>The Test of Self-Conscious Affect</em>, J. P. Tangney, R. Dearing, P. E. Wagner i R. Gramzow) — badania pilotażowe. <em>Przegląd Psychologiczny</em>, <em>65</em>(1), 65–80.<br>
+        <a class="citation-doi" href="https://doi.org/10.31648/przegldpsychologiczny.7826" target="_blank">https://doi.org/10.31648/przegldpsychologiczny.7826</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      Polska adaptacja TOSCA-3 · Artur Adamczyk &amp; Adam Sobolewski · 2022<br>
+      Narzędzie udostępniane na zasadach niekomercyjnych · Cytowanie wymagane przy publikacji<br>
+      Kontakt: <a href="mailto:artur.a@me.com">artur.a@me.com</a>
+    </div>
+  </footer>
+
+  <div id="toast"></div>
+
+  <script>
+    // ── VALID CODES (placeholder — zastąp własnymi) ──────────────────────────
+    // W docelowej wersji (z Supabase) kody będą sprawdzane server-side.
+    // Tu wpisz hardcoded kody testowe lub zostaw pustą tablicę do czasu
+    // integracji z backendem.
+    const VALID_CODES = new Set([
+      // 'DEMO-2024', 'TEST-0001'  ← przykład
+    ]);
+
+    // ── FORM SUBMISSION ──────────────────────────────────────────────────────
+    document.getElementById('request-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const form = e.target;
+      const btn = document.getElementById('submit-btn');
+
+      // Basic validation
+      const fname = form.fname.value.trim();
+      const lname = form.lname.value.trim();
+      const email = form.email.value.trim();
+      const affiliation = form.affiliation.value.trim();
+      const status = form.status.value;
+      const purpose = form.purpose.value;
+      const description = form.description.value.trim();
+      const consent = form.consent.checked;
+
+      if (!fname || !lname || !email || !affiliation || !status || !purpose || description.length < 30 || !consent) {
+        showToast('Proszę wypełnić wszystkie wymagane pola.');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Wysyłanie...';
+
+      // ── WYSYŁKA (EmailJS) ────────────────────────────────────────────────
+      // KONFIGURACJA: Zastąp poniższe wartości własnymi danymi z EmailJS:
+      // 1. Wejdź na https://www.emailjs.com/
+      // 2. Utwórz konto i nowy serwis e-mail
+      // 3. Stwórz szablon z polami: {{fname}}, {{lname}}, {{email}},
+      //    {{affiliation}}, {{status}}, {{purpose}}, {{description}}
+      // 4. Wklej swoje Service ID, Template ID i Public Key poniżej.
+
+      const EMAILJS_SERVICE_ID  = 'service_dmwyowc';
+      const EMAILJS_TEMPLATE_ID = 'template_wqsj92k';
+      const EMAILJS_PUBLIC_KEY  = 'abYqW-rUvxEAPMD6S';
+
+      const templateParams = {
+        fname, lname, email, affiliation, status, purpose, description,
+        to_email: 'artur.a@me.com',
+        sent_at: new Date().toLocaleString('pl-PL'),
+      };
+
+      let sent = false;
+
+      // Próba wysłania przez EmailJS (jeśli skonfigurowane)
+      if (EMAILJS_SERVICE_ID !== 'TWOJ_SERVICE_ID') {
+        try {
+          await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, EMAILJS_PUBLIC_KEY);
+          sent = true;
+        } catch (err) {
+          console.warn('EmailJS error:', err);
+        }
+      } else {
+        // Fallback: mailto (otwiera klienta pocztowego)
+        const body = encodeURIComponent(
+          `Nowy wniosek o dostęp do TOSCA-3 PL\n\n` +
+          `Imię i nazwisko: ${fname} ${lname}\n` +
+          `E-mail: ${email}\n` +
+          `Afiliacja: ${affiliation}\n` +
+          `Status: ${status}\n` +
+          `Cel: ${purpose}\n\n` +
+          `Opis:\n${description}\n\n` +
+          `Przesłano: ${new Date().toLocaleString('pl-PL')}`
+        );
+        window.location.href = `mailto:artur.a@me.com?subject=${encodeURIComponent('Wniosek TOSCA-3 PL — ' + fname + ' ' + lname)}&body=${body}`;
+        sent = true;
+      }
+
+      // Pokaż sukces
+      document.getElementById('request-form').style.display = 'none';
+      document.getElementById('success-box').style.display = 'block';
+    });
+
+    // ── CODE VERIFICATION ────────────────────────────────────────────────────
+    function verifyCode() {
+      const input = document.getElementById('access-code').value.trim().toUpperCase();
+      const errorEl = document.getElementById('code-error');
+      const panel = document.getElementById('download-panel');
+
+      if (VALID_CODES.has(input)) {
+        errorEl.style.display = 'none';
+        panel.style.display = 'block';
+        panel.classList.add('fade-in');
+        showToast('Kod zatwierdzony. Możesz pobrać materiały.');
+        // Log use
+        logCodeUse(input);
+      } else {
+        errorEl.style.display = 'block';
+        panel.style.display = 'none';
+        document.getElementById('access-code').style.borderColor = 'var(--accent)';
+      }
+    }
+
+    document.getElementById('access-code').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') verifyCode();
+      // Auto-format: dodaj myślnik po 4 znakach
+      const val = this.value.replace(/-/g, '');
+      if (val.length === 4 && e.key !== 'Backspace' && !this.value.includes('-')) {
+        this.value = val + '-';
+      }
+    });
+
+    // ── DOWNLOAD LOGGING ─────────────────────────────────────────────────────
+    function logDownload(fileName) {
+      // Tu możesz podłączyć Supabase / własny endpoint do logowania pobrań
+      // Na razie console.log + powiadomienie
+      console.log(`Download: ${fileName} @ ${new Date().toISOString()}`);
+      showToast(`Pobieranie: ${fileName}`);
+
+      // Opcja: wyślij email powiadomienie przez EmailJS
+      // emailjs.send(SERVICE_ID, NOTIFICATION_TEMPLATE_ID, { file: fileName });
+    }
+
+    function logCodeUse(code) {
+      console.log(`Code used: ${code} @ ${new Date().toISOString()}`);
+    }
+
+    // ── TOAST ────────────────────────────────────────────────────────────────
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.style.display = 'block';
+      setTimeout(() => { t.style.display = 'none'; }, 3500);
+    }
+  </script>
+
+  <!-- EmailJS SDK (załadowane leniwie — aktywuje się tylko gdy skonfigurowane) -->
+  <script>
+    window.addEventListener('load', function() {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js';
+      script.onload = () => console.log('EmailJS loaded');
+      document.head.appendChild(script);
+    });
+  </script>
+
+</body>
+</html>
